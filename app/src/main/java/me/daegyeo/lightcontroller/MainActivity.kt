@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             val pairedDevices = bluetoothAdapter.bondedDevices
             if (pairedDevices.size > 0) {
                 AlertDialog.Builder(this).apply {
-                    setTitle("우산 연결하기")
+                    setTitle("연결할 전구를 선택해주세요.")
                     val deviceNames = pairedDevices.map {
                         it.name
                     }
