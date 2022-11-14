@@ -9,6 +9,6 @@
         android:id="@+id/FirstFragment"
         android:name="me.daegyeo.lightcontroller.FirstFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/frament_main">
     </fragment>
 </navigation>

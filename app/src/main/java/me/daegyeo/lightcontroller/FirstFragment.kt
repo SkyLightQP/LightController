@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import me.daegyeo.lightcontroller.databinding.FragmentFirstBinding
+import me.daegyeo.lightcontroller.databinding.FramentMainBinding
 
 class FirstFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FramentMainBinding? = null
 
     private val binding get() = _binding!!
 
@@ -17,7 +17,7 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FramentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
