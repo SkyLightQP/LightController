@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var bluetoothAdapter: BluetoothAdapter
+    private lateinit var bluetoothThread: BluetoothThread
     private val permissionList = arrayOf(Permission(this, Manifest.permission.BLUETOOTH_CONNECT))
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,23 +65,26 @@ class MainActivity : AppCompatActivity() {
                     it.name
                 }
                 setItems(deviceNames.toTypedArray()) { _, which ->
-                    connectBluetoothDevice(deviceNames[which])
+                    bluetoothThread = connectBluetoothDevice(deviceNames[which])
                 }
                 create().show()
             }
         }
     }
 
-    private fun connectBluetoothDevice(deviceName: String) {
+    private fun connectBluetoothDevice(deviceName: String): BluetoothThread {
         try {
             val device = bluetoothAdapter.bondedDevices.filter { it.name == deviceName }
             val socket =
                 device[0].createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"))
             socket.connect()
+            return BluetoothThread(socket)
         } catch (ex: IOException) {
             Log.e("TEST", ex.stackTraceToString())
             Toast.makeText(this, "${deviceName}에 연결을 할 수 없습니다.\n다시 시도해주세요.", Toast.LENGTH_SHORT)
                 .show()
+        } catch (ex: Error) {
+            Toast.makeText(this, ex.message, Toast.LENGTH_SHORT).show()
         }
     }
 }
