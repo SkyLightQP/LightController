@@ -2,25 +2,25 @@ package me.daegyeo.lightcontroller
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
-import android.content.pm.PackageManager
+import android.bluetooth.BluetoothManager
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import me.daegyeo.lightcontroller.databinding.ActivityMainBinding
 import me.daegyeo.lightcontroller.permissions.Permission
 import java.io.IOException
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var bluetoothAdapter: BluetoothAdapter
@@ -31,10 +31,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+        bluetoothAdapter = getSystemService(BluetoothManager::class.java).adapter
         setContentView(binding.root)
-
-        val toolbar = findViewById<Toolbar>(R.id.new_toolbar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById<Toolbar>(R.id.new_toolbar))
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
@@ -47,22 +46,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         findViewById<ImageButton>(R.id.bluetooth).setOnClickListener {
-            if (!bluetoothAdapter.isEnabled) return@setOnClickListener
+            if (!bluetoothAdapter.isEnabled) {
+                val bluetoothOnIndent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                startActivity(bluetoothOnIndent)
+            }
+            showBluetoothDeviceDialog()
+        }
+    }
 
-            val pairedDevices = bluetoothAdapter.bondedDevices
-            if (pairedDevices.size > 0) {
-                AlertDialog.Builder(this).apply {
-                    setTitle("연결할 전구를 선택해주세요.")
-                    val deviceNames = pairedDevices.map {
-                        it.name
-                    }
-                    setItems(deviceNames.toTypedArray()) { _, which ->
-                        connectBluetoothDevice(deviceNames[which])
-                    }
-                    create().show()
+    private fun showBluetoothDeviceDialog() {
+        val pairedDevices = bluetoothAdapter.bondedDevices
+        if (pairedDevices.size > 0) {
+            MaterialAlertDialogBuilder(this).apply {
+                setTitle("연결할 전구를 선택해주세요.")
+                val deviceNames = pairedDevices.map {
+                    it.name
                 }
+                setItems(deviceNames.toTypedArray()) { _, which ->
+                    connectBluetoothDevice(deviceNames[which])
+                }
+                create().show()
             }
         }
     }
@@ -79,5 +83,4 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
     }
-
 }
