@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothManager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.switchmaterial.SwitchMaterial
 import me.daegyeo.lightcontroller.databinding.ActivityMainBinding
 import me.daegyeo.lightcontroller.permissions.Permission
 import java.io.IOException
@@ -55,33 +57,17 @@ class MainActivity : AppCompatActivity() {
             showBluetoothDeviceDialog()
         }
 
-        findViewById<Button>(R.id.frontButton).setOnClickListener {
-            if (bluetoothThread == null) {
-                Toast.makeText(this, "블루투스를 연결해주세요.", Toast.LENGTH_LONG).show()
-                return@setOnClickListener
-            }
-            bluetoothThread!!.write(byteArrayOf(DataPacket.FRONT))
+        findViewById<Button>(R.id.frontButton).setOnClickListener { sendData(byteArrayOf(DataPacket.FRONT)) }
+        findViewById<Button>(R.id.backButton).setOnClickListener { sendData(byteArrayOf(DataPacket.BACK)) }
+        findViewById<Button>(R.id.leftButton).setOnClickListener { sendData(byteArrayOf(DataPacket.LEFT)) }
+        findViewById<Button>(R.id.rightButton).setOnClickListener { sendData(byteArrayOf(DataPacket.RIGHT)) }
+        findViewById<SwitchMaterial>(R.id.lightPower).setOnClickListener {
+            if (it.isEnabled) sendData(byteArrayOf(DataPacket.LIGHT_ON))
+            else sendData(byteArrayOf(DataPacket.LIGHT_OFF))
         }
-        findViewById<Button>(R.id.backButton).setOnClickListener {
-            if (bluetoothThread == null) {
-                Toast.makeText(this, "블루투스를 연결해주세요.", Toast.LENGTH_LONG).show()
-                return@setOnClickListener
-            }
-            bluetoothThread!!.write(byteArrayOf(DataPacket.BACK))
-        }
-        findViewById<Button>(R.id.leftButton).setOnClickListener {
-            if (bluetoothThread == null) {
-                Toast.makeText(this, "블루투스를 연결해주세요.", Toast.LENGTH_LONG).show()
-                return@setOnClickListener
-            }
-            bluetoothThread!!.write(byteArrayOf(DataPacket.LEFT))
-        }
-        findViewById<Button>(R.id.rightButton).setOnClickListener {
-            if (bluetoothThread == null) {
-                Toast.makeText(this, "블루투스를 연결해주세요.", Toast.LENGTH_LONG).show()
-                return@setOnClickListener
-            }
-            bluetoothThread!!.write(byteArrayOf(DataPacket.RIGHT))
+        findViewById<CheckBox>(R.id.lightBrightness).setOnClickListener {
+            if (it.isEnabled) sendData(byteArrayOf(DataPacket.LIGHT_AUTO_ON))
+            else sendData(byteArrayOf(DataPacket.LIGHT_AUTO_OFF))
         }
     }
 
@@ -114,5 +100,13 @@ class MainActivity : AppCompatActivity() {
             device[0].createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"))
         socket.connect()
         return BluetoothThread(socket)
+    }
+
+    private fun sendData(bytes: ByteArray) {
+        if (bluetoothThread == null) {
+            Toast.makeText(this, "블루투스를 연결해주세요.", Toast.LENGTH_LONG).show()
+            return
+        }
+        bluetoothThread!!.write(bytes)
     }
 }
