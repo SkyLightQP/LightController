@@ -15,7 +15,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import me.daegyeo.lightcontroller.databinding.ActivityMainBinding
-import me.daegyeo.movingumbrella.runtimePermission.Permission
+import me.daegyeo.lightcontroller.permissions.Permission
 import java.io.IOException
 import java.util.*
 
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var bluetoothAdapter: BluetoothAdapter
-    private val bluetoothConnect = Permission(this, Manifest.permission.BLUETOOTH_CONNECT)
+    private val permissionList = arrayOf(Permission(this, Manifest.permission.BLUETOOTH_CONNECT))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -40,16 +40,11 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-
-        if (!bluetoothConnect.isGrant()) {
-            Toast.makeText(this, "블루투스 사용을 위해 권한 허용을 해주세요.", Toast.LENGTH_LONG).show()
-            Permission.requestPermissions(
-                this,
-                arrayOf(
-                    Manifest.permission.BLUETOOTH_CONNECT
-                ),
-                1000
-            )
+        permissionList.forEach {
+            if (!it.isGrant()) {
+                Toast.makeText(this, "블루투스 사용을 위해 권한을 허용해주세요.", Toast.LENGTH_LONG).show()
+                Permission.requestPermissions(this, arrayOf(it.permission), 1000)
+            }
         }
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
@@ -67,21 +62,6 @@ class MainActivity : AppCompatActivity() {
                         connectBluetoothDevice(deviceNames[which])
                     }
                     create().show()
-                }
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            1000 -> {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                 }
             }
         }

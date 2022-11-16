@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import me.daegyeo.lightcontroller.databinding.FramentMainBinding
 
-class FirstFragment : Fragment() {
+class MainFragment : Fragment() {
 
     private var _binding: FramentMainBinding? = null
 
