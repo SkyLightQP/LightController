@@ -5,7 +5,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var bluetoothAdapter: BluetoothAdapter
-    private lateinit var bluetoothThread: BluetoothThread
+    private var bluetoothThread: BluetoothThread? = null
     private val permissionList = arrayOf(Permission(this, Manifest.permission.BLUETOOTH_CONNECT))
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +54,35 @@ class MainActivity : AppCompatActivity() {
             }
             showBluetoothDeviceDialog()
         }
+
+        findViewById<Button>(R.id.frontButton).setOnClickListener {
+            if (bluetoothThread == null) {
+                Toast.makeText(this, "블루투스를 연결해주세요.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            bluetoothThread!!.write(byteArrayOf(DataPacket.FRONT))
+        }
+        findViewById<Button>(R.id.backButton).setOnClickListener {
+            if (bluetoothThread == null) {
+                Toast.makeText(this, "블루투스를 연결해주세요.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            bluetoothThread!!.write(byteArrayOf(DataPacket.BACK))
+        }
+        findViewById<Button>(R.id.leftButton).setOnClickListener {
+            if (bluetoothThread == null) {
+                Toast.makeText(this, "블루투스를 연결해주세요.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            bluetoothThread!!.write(byteArrayOf(DataPacket.LEFT))
+        }
+        findViewById<Button>(R.id.rightButton).setOnClickListener {
+            if (bluetoothThread == null) {
+                Toast.makeText(this, "블루투스를 연결해주세요.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            bluetoothThread!!.write(byteArrayOf(DataPacket.RIGHT))
+        }
     }
 
     private fun showBluetoothDeviceDialog() {
@@ -65,7 +94,14 @@ class MainActivity : AppCompatActivity() {
                     it.name
                 }
                 setItems(deviceNames.toTypedArray()) { _, which ->
-                    bluetoothThread = connectBluetoothDevice(deviceNames[which])
+                    try {
+                        bluetoothThread = connectBluetoothDevice(deviceNames[which])
+                    } catch (ex: IOException) {
+                        Toast.makeText(context, "${deviceNames[which]}에 연결을 할 수 없습니다.", Toast.LENGTH_SHORT)
+                            .show()
+                    } catch (ex: Error) {
+                        Toast.makeText(context, ex.message, Toast.LENGTH_SHORT).show()
+                    }
                 }
                 create().show()
             }
@@ -73,18 +109,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun connectBluetoothDevice(deviceName: String): BluetoothThread {
-        try {
-            val device = bluetoothAdapter.bondedDevices.filter { it.name == deviceName }
-            val socket =
-                device[0].createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"))
-            socket.connect()
-            return BluetoothThread(socket)
-        } catch (ex: IOException) {
-            Log.e("TEST", ex.stackTraceToString())
-            Toast.makeText(this, "${deviceName}에 연결을 할 수 없습니다.\n다시 시도해주세요.", Toast.LENGTH_SHORT)
-                .show()
-        } catch (ex: Error) {
-            Toast.makeText(this, ex.message, Toast.LENGTH_SHORT).show()
-        }
+        val device = bluetoothAdapter.bondedDevices.filter { it.name == deviceName }
+        val socket =
+            device[0].createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"))
+        socket.connect()
+        return BluetoothThread(socket)
     }
 }
