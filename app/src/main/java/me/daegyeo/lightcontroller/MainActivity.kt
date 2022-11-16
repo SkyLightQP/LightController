@@ -14,11 +14,10 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.google.android.material.snackbar.Snackbar
 import me.daegyeo.lightcontroller.databinding.ActivityMainBinding
 import me.daegyeo.movingumbrella.runtimePermission.Permission
 import java.io.IOException
-import java.util.UUID
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,13 +50,6 @@ class MainActivity : AppCompatActivity() {
                 ),
                 1000
             )
-        }
-
-
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()
         }
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
@@ -98,7 +90,8 @@ class MainActivity : AppCompatActivity() {
     private fun connectBluetoothDevice(deviceName: String) {
         try {
             val device = bluetoothAdapter.bondedDevices.filter { it.name == deviceName }
-            val socket = device[0].createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"))
+            val socket =
+                device[0].createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"))
             socket.connect()
         } catch (ex: IOException) {
             Log.e("TEST", ex.stackTraceToString())

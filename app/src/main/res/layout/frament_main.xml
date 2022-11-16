@@ -11,74 +11,102 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <ToggleButton
-            android:id="@+id/toggleButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="전등 전원"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/lightPowerCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/brown_secondary"
+            app:contentPadding="10dp"
+            app:contentPaddingLeft="20dp"
+            app:contentPaddingRight="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/white"
+            tools:layout_editor_absoluteX="16dp">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:checked="true"
+                    android:clickable="true"
+                    android:text="전구 전원"
+                    app:thumbTint="@color/brown_primary"
+                    app:trackTint="@color/brown_light" />
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:text="밝기 자동 조절" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="전원"
-            app:layout_constraintEnd_toStartOf="@+id/toggleButton"
-            app:layout_constraintHorizontal_bias="0.056"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:cardBackgroundColor="@color/brown_secondary"
+            app:contentPadding="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/lightPowerCard"
+            app:strokeColor="@color/white"
+            tools:layout_editor_absoluteX="16dp">
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="자동 밝기 조절"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.149"
-            app:layout_constraintStart_toEndOf="@+id/toggleButton"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/front_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:text="앞"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <Button
+                    android:id="@+id/frontButton"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="60dp"
+                    android:layout_height="66dp"
+                    android:text="앞"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/right_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="우"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/front_button" />
+                <Button
+                    android:id="@+id/leftButton"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="60dp"
+                    android:layout_height="66dp"
+                    android:layout_marginStart="76dp"
+                    android:text="왼"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/left_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="좌"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/front_button" />
+                <Button
+                    android:id="@+id/rightButton"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="60dp"
+                    android:layout_height="66dp"
+                    android:layout_marginEnd="76dp"
+                    android:text="오"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.492" />
 
-        <Button
-            android:id="@+id/back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="뒤"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/front_button" />
+                <Button
+                    android:id="@+id/backButton"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="60dp"
+                    android:layout_height="66dp"
+                    android:layout_marginTop="68dp"
+                    android:text="뒤"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.501"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/frontButton" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
