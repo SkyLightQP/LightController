@@ -60,49 +60,76 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/frontButton"
+                    android:id="@+id/frontButton1"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="60dp"
                     android:layout_height="66dp"
                     android:text="▲"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.337"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/backButton1"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="60dp"
+                    android:layout_height="66dp"
+                    android:layout_marginTop="64dp"
+                    android:text="▼"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.337"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/frontButton1" />
+
+                <Button
+                    android:id="@+id/frontButton2"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="60dp"
+                    android:layout_height="66dp"
+                    android:text="▲"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.665"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/backButton2"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="60dp"
+                    android:layout_height="66dp"
+                    android:layout_marginTop="60dp"
+                    android:text="▼"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.665"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/frontButton2"
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <Button
                     android:id="@+id/leftButton"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="60dp"
                     android:layout_height="66dp"
-                    android:layout_marginStart="76dp"
+                    android:layout_marginStart="24dp"
                     android:text="◀"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.492" />
 
                 <Button
                     android:id="@+id/rightButton"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="60dp"
                     android:layout_height="66dp"
-                    android:layout_marginEnd="76dp"
+                    android:layout_marginEnd="24dp"
                     android:text="▶"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.492" />
-
-                <Button
-                    android:id="@+id/backButton"
-                    style="@style/Widget.Material3.Button.ElevatedButton"
-                    android:layout_width="60dp"
-                    android:layout_height="66dp"
-                    android:layout_marginTop="68dp"
-                    android:text="▼"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.501"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/frontButton" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

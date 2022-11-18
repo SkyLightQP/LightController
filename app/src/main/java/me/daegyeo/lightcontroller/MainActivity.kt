@@ -57,8 +57,10 @@ class MainActivity : AppCompatActivity() {
             showBluetoothDeviceDialog()
         }
 
-        findViewById<Button>(R.id.frontButton).setOnClickListener { sendData(byteArrayOf(DataPacket.FRONT)) }
-        findViewById<Button>(R.id.backButton).setOnClickListener { sendData(byteArrayOf(DataPacket.BACK)) }
+        findViewById<Button>(R.id.frontButton1).setOnClickListener { sendData(byteArrayOf(DataPacket.FRONT1)) }
+        findViewById<Button>(R.id.backButton1).setOnClickListener { sendData(byteArrayOf(DataPacket.BACK1)) }
+        findViewById<Button>(R.id.frontButton2).setOnClickListener { sendData(byteArrayOf(DataPacket.FRONT2)) }
+        findViewById<Button>(R.id.backButton2).setOnClickListener { sendData(byteArrayOf(DataPacket.BACK2)) }
         findViewById<Button>(R.id.leftButton).setOnClickListener { sendData(byteArrayOf(DataPacket.LEFT)) }
         findViewById<Button>(R.id.rightButton).setOnClickListener { sendData(byteArrayOf(DataPacket.RIGHT)) }
         findViewById<SwitchMaterial>(R.id.lightPower).setOnClickListener {
