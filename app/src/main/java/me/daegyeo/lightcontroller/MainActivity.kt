@@ -63,6 +63,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.backButton2).setOnClickListener { sendData(byteArrayOf(DataPacket.BACK2)) }
         findViewById<Button>(R.id.leftButton).setOnClickListener { sendData(byteArrayOf(DataPacket.LEFT)) }
         findViewById<Button>(R.id.rightButton).setOnClickListener { sendData(byteArrayOf(DataPacket.RIGHT)) }
+        findViewById<Button>(R.id.whiteColor).setOnClickListener { sendData(byteArrayOf(DataPacket.WHITE)) }
+        findViewById<Button>(R.id.redColor).setOnClickListener { sendData(byteArrayOf(DataPacket.RED)) }
+        findViewById<Button>(R.id.greenColor).setOnClickListener { sendData(byteArrayOf(DataPacket.GREEN)) }
+        findViewById<Button>(R.id.blueColor).setOnClickListener { sendData(byteArrayOf(DataPacket.BLUE)) }
         findViewById<SwitchMaterial>(R.id.lightPower).setOnClickListener {
             if (it.isEnabled) sendData(byteArrayOf(DataPacket.LIGHT_ON))
             else sendData(byteArrayOf(DataPacket.LIGHT_OFF))

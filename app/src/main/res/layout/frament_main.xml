@@ -25,23 +25,60 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/lightPower"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="전구 전원"
-                    app:thumbTint="@color/brown_primary"
-                    app:trackTint="@color/brown_light" />
-
-                <CheckBox
-                    android:id="@+id/lightBrightness"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:text="밝기 자동 조절" />
+                    android:layout_height="match_parent">
 
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/lightPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="전구 전원"
+                        app:thumbTint="@color/brown_primary"
+                        app:trackTint="@color/brown_light" />
+
+                    <CheckBox
+                        android:id="@+id/lightBrightness"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:text="밝기 자동 조절" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/whiteColor"
+                        android:layout_width="40dp"
+                        android:layout_height="46dp"
+                        android:backgroundTint="#ffffff"
+                        android:layout_marginRight="10dp"/>
+                    <Button
+                        android:id="@+id/redColor"
+                        android:layout_width="40dp"
+                        android:layout_height="46dp"
+                        android:backgroundTint="#e74c3c"
+                        android:layout_marginRight="10dp"/>
+                    <Button
+                        android:id="@+id/greenColor"
+                        android:layout_width="40dp"
+                        android:layout_height="46dp"
+                        android:backgroundTint="#2ecc71"
+                        android:layout_marginRight="10dp"/>
+                    <Button
+                        android:id="@+id/blueColor"
+                        android:layout_width="40dp"
+                        android:layout_height="46dp"
+                        android:backgroundTint="#3498db"
+                        android:layout_marginRight="10dp"/>
+
+                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

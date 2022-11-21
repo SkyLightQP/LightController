@@ -11,4 +11,8 @@ object DataPacket {
     val BACK2 = 'C'.code.toByte()
     val LEFT = 'L'.code.toByte()
     val RIGHT = 'R'.code.toByte()
+    val WHITE = 'W'.code.toByte()
+    val RED = 'X'.code.toByte()
+    val GREEN = 'Y'.code.toByte()
+    val BLUE = 'Z'.code.toByte()
 }
