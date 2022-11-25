@@ -67,12 +67,12 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.redColor).setOnClickListener { sendData(byteArrayOf(DataPacket.RED)) }
         findViewById<Button>(R.id.greenColor).setOnClickListener { sendData(byteArrayOf(DataPacket.GREEN)) }
         findViewById<Button>(R.id.blueColor).setOnClickListener { sendData(byteArrayOf(DataPacket.BLUE)) }
-        findViewById<SwitchMaterial>(R.id.lightPower).setOnClickListener {
-            if (it.isEnabled) sendData(byteArrayOf(DataPacket.LIGHT_ON))
+        findViewById<SwitchMaterial>(R.id.lightPower).setOnCheckedChangeListener { _, value ->
+            if (value) sendData(byteArrayOf(DataPacket.LIGHT_ON))
             else sendData(byteArrayOf(DataPacket.LIGHT_OFF))
         }
-        findViewById<CheckBox>(R.id.lightBrightness).setOnClickListener {
-            if (it.isEnabled) sendData(byteArrayOf(DataPacket.LIGHT_AUTO_ON))
+        findViewById<CheckBox>(R.id.lightBrightness).setOnCheckedChangeListener { _, value ->
+            if (value) sendData(byteArrayOf(DataPacket.LIGHT_AUTO_ON))
             else sendData(byteArrayOf(DataPacket.LIGHT_AUTO_OFF))
         }
     }
